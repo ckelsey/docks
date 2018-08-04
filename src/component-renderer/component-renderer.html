@@ -1,0 +1,43 @@
+<article class="doc-element" v-if="service.states.view === `components` && service.doc.name">
+    <div class="h1 title">{{ service.doc.name }}
+        <span class="subtitle" v-if="service.doc.description">{{ service.doc.description }}</span>
+    </div>
+    <section v-if="service.doc.body">
+        <div v-html="service.doc.body"></div>
+    </section>
+    <section v-if="service.doc.group === `components`">
+        <div class="h2" @click="service.states.demo = !service.states.demo" :class="service.states.demo ? 'active' : ''">Demo</div>
+        <div v-show="service.states.demo">
+            <div>
+                <pre class="demo"><code>{{service.getMarkup(service.doc)}}</code></pre>
+            </div>
+            <div>
+                <button @click="launch(service.doc)">Launch demo</button>
+            </div>
+            <div id="demo-overlay-container" v-show="service.states.demoOverlay">
+                <div id="demo-overlay-close" @click="service.states.demoOverlay = false">x</div>
+                <div id="demo-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <section v-if="service.doc.children && service.doc.children.attributeProperties && Object.keys(service.doc.children.attributeProperties).length">
+        <div class="h2" @click="service.states.props = !service.states.props" :class="service.states.props ? 'active' : ''">Attribute properties</div>
+        <table-renderer :show="service.states.props" :properties="attributeProps"></table-renderer>
+    </section>
+
+    <section v-if="service.doc.children && service.doc.children.properties && Object.keys(service.doc.children.properties).length">
+        <div class="h2" @click="service.states.dataProps = !service.states.dataProps" :class="service.states.dataProps ? 'active' : ''">Properties</div>
+        <table-renderer :show="service.states.dataProps" :properties="properties"></table-renderer>
+    </section>
+    
+    <section v-if="service.doc.children && service.doc.children.getters && Object.keys(service.doc.children.getters).length">
+        <div class="h2" @click="service.states.getters = !service.states.getters" :class="service.states.getters ? 'active' : ''">getters properties</div>
+        <table-renderer :show="service.states.getters" :properties="gettersProps"></table-renderer>
+    </section>
+    
+    <section v-if="service.doc.children && service.doc.children.methods && Object.keys(service.doc.children.methods).length">
+        <div class="h2" @click="service.states.methods = !service.states.methods" :class="service.states.methods ? 'active' : ''">Methods</div>
+        <table-renderer :show="service.states.methods" :properties="methods"></table-renderer>
+    </section>
+</article>

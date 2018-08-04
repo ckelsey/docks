@@ -1,0 +1,31 @@
+.test-item-container {
+    margin: 7px 0px;
+    .test-item {
+        font-size: 12px;
+        margin: 0px;
+        &.pass {
+            .test-item-result {
+                color: #76b900;
+            }
+        }
+        &.fail {
+            .test-item-result {
+                color: #a10005;
+            }
+        }
+    }
+    b.pass {
+        color: #76b900;
+    }
+    b.fail {
+        color: #a10005;
+    }
+}
+
+.untested {
+    background: #a18f74;
+    color: #fff;
+    padding: 7px 10px;
+    margin: 3px 0px;
+    font-size: 12px;
+}
